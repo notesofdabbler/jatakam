@@ -9,6 +9,7 @@ shinyUI(fluidPage(
   headerPanel("Yogi Calculation"),
   sidebarLayout(
     sidebarPanel(
+      selectInput("yogitype","Yogi or Avayogi",choices = c("Yogi","Avayogi"),selected = "Yogi"),
       h3("Suryan Longitude"),
       selectInput("suryan_house","House",choices = houselist,selected = "mesham"),
       fluidRow(

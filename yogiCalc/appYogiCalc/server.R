@@ -18,8 +18,14 @@ shinyServer(function(input,output){
     chandran_long_deg = (chandran_house_idx - 1) * 30 + chandran_long_deg
     chandran_long_min = input$chandran_long_min
     
-    extra_deg = 93
-    extra_min = 20
+    if(input$yogitype == "Yogi"){
+      extra_deg = 93
+      extra_min = 20      
+    } else {
+      extra_deg = 280
+      extra_min = 0
+    }
+
     
     # calculate total of suryan, chandran and extra (in minutes)
     tot = 60*(suryan_long_deg + chandran_long_deg + extra_deg) + 
@@ -59,10 +65,24 @@ shinyServer(function(input,output){
   })
   
   output$getstarhouseplanet = renderUI({
-    houseinfo = paste0("<h1> House Planet </h1><h3>",yogiCalc()$gethouseplanet,"</h3></br>")
-    starinfo = paste0("<h1> Star Planet </h1><h3> ",yogiCalc()$getstarplanet,"</h3></br>")
     
-    uiout = paste0(houseinfo,starinfo)
+    houseplanetlabel = "Duplicate Yogi"
+    
+    if(input$yogitype == "Yogi"){
+      starplanetlabel = "Yogi"
+    } else {
+      starplanetlabel = "Avayogi"
+    }
+    
+    houseinfo = paste0("<h1>",houseplanetlabel,"</h1><h3>",yogiCalc()$gethouseplanet,"</h3></br>")
+    starinfo = paste0("<h1>",starplanetlabel,"</h1><h3> ",yogiCalc()$getstarplanet,"</h3></br>")
+    
+    if(input$yogitype == "Yogi"){
+      uiout = paste0(houseinfo,starinfo)
+    } else {
+      uiout = starinfo
+    }
+    
     HTML(uiout)
   })
   
