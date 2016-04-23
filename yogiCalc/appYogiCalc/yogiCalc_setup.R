@@ -29,7 +29,7 @@ names(planet_star_map) = starlist
 star_qtr_map = rep(starlist,each = 4)
 
 # minutes per qtr
-minperqtr = 3*60 + 20
+secperqtr = 3*60*60 + 20*60
 # qtrs per house
 qtrperhouse = 9
 

@@ -11,12 +11,14 @@ shinyServer(function(input,output){
     suryan_long_deg = input$suryan_long_deg
     suryan_long_deg = (suryan_house_idx - 1) * 30 + suryan_long_deg
     suryan_long_min = input$suryan_long_min
+    suryan_long_sec = input$suryan_long_sec
     
     chandran_house = input$chandran_house
     chandran_house_idx = match(chandran_house,houselist)
     chandran_long_deg = input$chandran_long_deg
     chandran_long_deg = (chandran_house_idx - 1) * 30 + chandran_long_deg
     chandran_long_min = input$chandran_long_min
+    chandran_long_sec = input$chandran_long_sec
     
     if(input$yogitype == "Yogi"){
       extra_deg = 93
@@ -28,18 +30,21 @@ shinyServer(function(input,output){
 
     
     # calculate total of suryan, chandran and extra (in minutes)
-    tot = 60*(suryan_long_deg + chandran_long_deg + extra_deg) + 
-      (suryan_long_min + chandran_long_min + extra_min)
+    tot = 3600*(suryan_long_deg + chandran_long_deg + extra_deg) + 
+      60*(suryan_long_min + chandran_long_min + extra_min) + 
+         (suryan_long_sec + chandran_long_sec)
     
     # take remainder from 360 degrees
-    period = 360*60
+    period = 360*60*60
     tot = tot %% period
     
-    tot_deg = floor(tot/60)
-    tot_min = tot %% 60
+    tot_deg = floor(tot/3600)
+    tot_minsec = tot %% 3600
+    tot_min = floor(tot_minsec/60)
+    tot_sec = tot_minsec %% 60
     
     # calculate house-qtr
-    houseqtr = ceiling(tot/minperqtr)
+    houseqtr = ceiling(tot/secperqtr)
     house = ceiling(houseqtr/qtrperhouse)
     qtr = houseqtr %% qtrperhouse
     
@@ -52,7 +57,8 @@ shinyServer(function(input,output){
                 gethouseplanet = gethouseplanet,
                 getstarplanet = getstarplanet,
                 tot_deg = tot_deg,
-                tot_min = tot_min))
+                tot_min = tot_min,
+                tot_sec = tot_sec))
     
   })
   
@@ -87,7 +93,8 @@ shinyServer(function(input,output){
   })
   
   output$totdegmin = renderText({
-    uiout = paste0(yogiCalc()$tot_deg," degrees ",yogiCalc()$tot_min," minutes")
+    uiout = paste0(yogiCalc()$tot_deg," degrees ",yogiCalc()$tot_min," minutes ",
+                   yogiCalc()$tot_sec," seconds")
     uiout
   })
   

@@ -13,22 +13,28 @@ shinyUI(fluidPage(
       h3("Suryan Longitude"),
       selectInput("suryan_house","House",choices = houselist,selected = "mesham"),
       fluidRow(
-        column(6,
+        column(3,
                numericInput("suryan_long_deg","degrees",0,min = 0, max = 360)
                ),
-        column(6,
+        column(3,
                numericInput("suryan_long_min","min",0,min = 0, max = 60)
+               ),
+        column(3,
+               numericInput("suryan_long_sec","sec",0,min = 0, max = 60)
                )
       ),
 
       h3("Chandran Longitude"),
       selectInput("chandran_house","House",choices = houselist,selected = "mesham"),
       fluidRow(
-        column(6,
+        column(3,
                numericInput("chandran_long_deg","degrees",0,min = 0, max = 360)
         ),
-        column(6,
+        column(3,
                numericInput("chandran_long_min","min",0,min = 0, max = 60)
+        ),
+        column(3,
+               numericInput("chandran_long_sec","sec",0,min = 0, max = 60)
         )
       ),
       br(),
