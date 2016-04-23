@@ -1,10 +1,16 @@
 library(shiny)
 
+# houselist
+houselist = c("mesham","rishabam","mithunam","katakam","simham","kanni",
+              "thula","vrichikam","dhanusu","makaram","kumbam","meenam")
+
+
 shinyUI(fluidPage(
   headerPanel("Yogi Calculation"),
   sidebarLayout(
     sidebarPanel(
       h3("Suryan Longitude"),
+      selectInput("suryan_house","House",choices = houselist,selected = "mesham"),
       fluidRow(
         column(6,
                numericInput("suryan_long_deg","degrees",0,min = 0, max = 360)
@@ -15,6 +21,7 @@ shinyUI(fluidPage(
       ),
 
       h3("Chandran Longitude"),
+      selectInput("chandran_house","House",choices = houselist,selected = "mesham"),
       fluidRow(
         column(6,
                numericInput("chandran_long_deg","degrees",0,min = 0, max = 360)

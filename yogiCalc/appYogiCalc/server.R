@@ -6,10 +6,16 @@ shinyServer(function(input,output){
   
   yogiCalc = reactive({
     ## Inputs
+    suryan_house = input$suryan_house
+    suryan_house_idx = match(suryan_house,houselist)
     suryan_long_deg = input$suryan_long_deg
+    suryan_long_deg = (suryan_house_idx - 1) * 30 + suryan_long_deg
     suryan_long_min = input$suryan_long_min
     
+    chandran_house = input$chandran_house
+    chandran_house_idx = match(chandran_house,houselist)
     chandran_long_deg = input$chandran_long_deg
+    chandran_long_deg = (chandran_house_idx - 1) * 30 + chandran_long_deg
     chandran_long_min = input$chandran_long_min
     
     extra_deg = 93
